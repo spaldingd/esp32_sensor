@@ -3,19 +3,18 @@
     Collects  DHT22 sensor reading and publishes to a MQTT topic.
 """
 
-import env_vars
 import time
-
-import dht
-from umqtt.simple import MQTTClient
-import machine
-import micropython
-import network
-import esp
+import dht # type: ignore
+import env_vars
+import esp # type: ignore
+import machine # type: ignore
+import micropython # type: ignore
+import network # type: ignore
+from umqtt.simple import MQTTClient # type: ignore
 esp.osdebug(None)
 import gc
 gc.collect()
-import ntptime
+import ntptime # type: ignore
 
 # connect WiFi
 station = network.WLAN(network.STA_IF)

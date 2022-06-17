@@ -1,11 +1,11 @@
 import env_vars
 import time
-from umqttsimple import MQTTClient
-import ubinascii
-import machine
-import micropython
-import network
-import esp
+from umqttsimple import MQTTClient # type: ignore
+import ubinascii # type: ignore
+import machine # type: ignore
+import micropython # type: ignore
+import network # type: ignore
+import esp # type: ignore
 esp.osdebug(None)
 import gc
 gc.collect()
