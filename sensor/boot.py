@@ -14,7 +14,7 @@ import esp # type: ignore
 esp.osdebug(None)
 import gc
 gc.collect()
-
+import ntptime # type: ignore
 
 
 client_id = ubinascii.hexlify(machine.unique_id())
@@ -30,3 +30,7 @@ while station.isconnected() == False:
 
 print('Connection successful')
 print(station.ifconfig())
+
+# Update Time
+ntptime.settime()
+time.sleep(5)

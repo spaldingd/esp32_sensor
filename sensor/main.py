@@ -14,7 +14,6 @@ from umqtt.simple import MQTTClient # type: ignore
 esp.osdebug(None)
 import gc
 gc.collect()
-import ntptime # type: ignore
 
 # connect WiFi
 station = network.WLAN(network.STA_IF)
@@ -26,11 +25,6 @@ while station.isconnected() == False:
 
 print('Connection successful')
 print(station.ifconfig())
-
-
-# Update Time
-ntptime.settime()
-time.sleep(5)
 
 # setup pin 23 for DHT22 connection
 PIN23 = machine.Pin(23, machine.Pin.IN, machine.Pin.PULL_UP)
