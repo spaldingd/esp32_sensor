@@ -5,7 +5,7 @@
 
 import time
 import dht # type: ignore
-import env_vars
+import sensor.env_vars as env_vars
 import esp # type: ignore
 import machine # type: ignore
 import micropython # type: ignore

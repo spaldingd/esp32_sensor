@@ -3,7 +3,7 @@
     Connects to WiFi and configures time via NTP.
 """
 
-import env_vars
+import sensor.env_vars as env_vars
 import time
 from umqttsimple import MQTTClient # type: ignore
 import ubinascii # type: ignore
