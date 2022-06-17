@@ -1,3 +1,8 @@
+"""
+    boot.py: executed on boot before main.py file.
+    Connects to WiFi and configures time via NTP.
+"""
+
 import env_vars
 import time
 from umqttsimple import MQTTClient # type: ignore
