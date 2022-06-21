@@ -5,7 +5,7 @@
 
 import time
 import dht # type: ignore
-import sensor.env_vars as env_vars
+from env_vars import *
 import esp # type: ignore
 import machine # type: ignore
 import micropython # type: ignore
@@ -18,7 +18,7 @@ gc.collect()
 # connect WiFi
 station = network.WLAN(network.STA_IF)
 station.active(True)
-station.connect(env_vars.ssid, env_vars.password)
+station.connect(ssid, password)
 
 while station.isconnected() == False:
   pass
@@ -42,7 +42,7 @@ for i in range(3):
 blue_led.value(0)
 
 # connect to the MQTT client
-client = MQTTClient(env_vars.CLIENT_ID, env_vars.mqtt_server, env_vars.mttq_port, env_vars.mttq_user, env_vars.mttq_password)
+client = MQTTClient(CLIENT_ID, mqtt_server, mttq_port, mttq_user, mttq_password)
 client.connect()
 
 # infinite loop to collect sensor reading and publish
@@ -57,12 +57,12 @@ while True:
         sensor.measure()
         temperature = sensor.temperature()
         humidity = sensor.humidity()
-        message = ("{0:10}, {1:8}, {2}, {3:3.2f}, {4:3.2f}".format(datestamp, timestamp, env_vars.CLIENT_ID, temperature, humidity))
-        client.publish(env_vars.mqtt_topic, message)
+        message = ("{0:10}, {1:8}, {2}, {3:3.2f}, {4:3.2f}".format(datestamp, timestamp, CLIENT_ID, temperature, humidity))
+        client.publish(mqtt_topic, message)
         print(message)
     except OSError as ose:
         print("Failed to read sensor")
         print(ose)
 
-    time.sleep(env_vars.sleep_time-1)
+    time.sleep(sleep_time-1)
 

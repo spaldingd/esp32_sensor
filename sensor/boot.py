@@ -3,9 +3,9 @@
     Connects to WiFi and configures time via NTP.
 """
 
-import sensor.env_vars as env_vars
+from env_vars import *
 import time
-from umqttsimple import MQTTClient # type: ignore
+from umqtt.simple import MQTTClient # type: ignore
 import ubinascii # type: ignore
 import machine # type: ignore
 import micropython # type: ignore
@@ -23,7 +23,7 @@ client_id = ubinascii.hexlify(machine.unique_id())
 station = network.WLAN(network.STA_IF)
 
 station.active(True)
-station.connect(env_vars.ssid, env_vars.password)
+station.connect(ssid, password)
 
 while station.isconnected() == False:
   pass
