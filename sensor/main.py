@@ -42,7 +42,7 @@ for i in range(3):
 blue_led.value(0)
 
 # connect to the MQTT client
-client = MQTTClient(CLIENT_ID, mqtt_server, mttq_port, mttq_user, mttq_password)
+client = MQTTClient(CLIENT_ID, mqtt_server, mqtt_port, mqtt_user, mqtt_password)
 client.connect()
 
 # infinite loop to collect sensor reading and publish
