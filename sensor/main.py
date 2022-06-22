@@ -15,16 +15,21 @@ esp.osdebug(None)
 import gc
 gc.collect()
 
-# connect WiFi
-station = network.WLAN(network.STA_IF)
-station.active(True)
-station.connect(ssid, password)
+def connect_wifi():
+    # connect WiFi
+    station = network.WLAN(network.STA_IF)
+    station.active(True)
+    station.connect(ssid, password)
 
-while station.isconnected() == False:
-  pass
+    while station.isconnected() == False:
+        pass
 
-print('Connection successful')
-print(station.ifconfig())
+    print('Connection successful')
+    print(station.ifconfig())
+    return station
+
+def disconnect_wifi(station):
+    station.disconnect()
 
 # setup pin 23 for DHT22 connection
 PIN23 = machine.Pin(23, machine.Pin.IN, machine.Pin.PULL_UP)
@@ -41,9 +46,10 @@ for i in range(3):
     time.sleep(1)
 blue_led.value(0)
 
-# connect to the MQTT client
-client = MQTTClient(CLIENT_ID, mqtt_server, mqtt_port, mqtt_user, mqtt_password)
-client.connect()
+def connect_mqtt():
+    # connect to the MQTT client
+    client = MQTTClient(CLIENT_ID, mqtt_server, mqtt_port, mqtt_user, mqtt_password)
+    client.connect()
 
 # infinite loop to collect sensor reading and publish
 while True:
@@ -58,7 +64,10 @@ while True:
         temperature = sensor.temperature()
         humidity = sensor.humidity()
         message = ("{0:10}, {1:8}, {2}, {3:3.2f}, {4:3.2f}".format(datestamp, timestamp, CLIENT_ID, temperature, humidity))
-        client.publish(mqtt_topic, message)
+        wifi_connection = connect_wifi()
+        mqtt_client = connect_mqtt()
+        mqtt_client.publish(mqtt_topic, message)
+        disconnect_wifi(wifi_connection)
         print(message)
     except OSError as ose:
         print("Failed to read sensor")
@@ -66,3 +75,7 @@ while True:
 
     time.sleep(sleep_time-1)
 
+if __name__ == "__main__":
+    wifi_connection = connect_wifi()
+    mqtt_client = connect_mqtt()
+    disconnect_wifi(wifi_connection)
