@@ -50,6 +50,7 @@ def connect_mqtt():
     # connect to the MQTT client
     client = MQTTClient(CLIENT_ID, mqtt_server, mqtt_port, mqtt_user, mqtt_password)
     client.connect()
+    return client
 
 # infinite loop to collect sensor reading and publish
 while True:
