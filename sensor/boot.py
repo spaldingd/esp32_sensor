@@ -32,5 +32,7 @@ print('Connection successful')
 print(station.ifconfig())
 
 # Update Time
+print("Setting time via NTP")
 ntptime.settime()
 time.sleep(5)
+print("System time set to " & time.localtime())

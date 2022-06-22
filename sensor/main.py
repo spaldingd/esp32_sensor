@@ -66,8 +66,11 @@ while True:
         humidity = sensor.humidity()
         message = ("{0:10}, {1:8}, {2}, {3:3.2f}, {4:3.2f}".format(datestamp, timestamp, CLIENT_ID, temperature, humidity))
         wifi_connection = connect_wifi()
-        mqtt_client = connect_mqtt()
-        mqtt_client.publish(mqtt_topic, message)
+        # mqtt_client = connect_mqtt()
+        client = MQTTClient(CLIENT_ID, mqtt_server, mqtt_port, mqtt_user, mqtt_password)
+        client.connect()
+        client.publish(mqtt_topic, message)
+        client.disconnect()
         disconnect_wifi(wifi_connection)
         print(message)
     except OSError as ose:
