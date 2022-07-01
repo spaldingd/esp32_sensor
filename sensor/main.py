@@ -80,7 +80,7 @@ while True:
         # mqtt_client = connect_mqtt()
         client = MQTTClient(CLIENT_ID, mqtt_server, mqtt_port, mqtt_user, mqtt_password)
         client.connect()
-        client.publish(mqtt_topic, json_message)
+        client.publish(mqtt_topic, str(json_message))
         client.disconnect()
         disconnect_wifi(wifi_connection)
         print(message)
