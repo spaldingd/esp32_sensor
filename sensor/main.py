@@ -68,19 +68,19 @@ while True:
         json_message = {'date': datestamp, 
                         'time': timestamp, 
                         'client_id': CLIENT_ID, 
-                        'measured_temperature': measured_temperature, 
-                        'measured_humidity': measured_humidity, 
-                        'temperature_min': temperature_min, 
-                        'temperature_max': temperature_max,
-                        'humidity_min': humidity_min,
-                        'humidity_max': humidity_max}
+                        'measured_temperature': round(measured_temperature,2), 
+                        'measured_humidity': round(measured_humidity,2), 
+                        'temperature_min': round(temperature_min,2), 
+                        'temperature_max': round(temperature_max,2),
+                        'humidity_min': round(humidity_min,2),
+                        'humidity_max': round(humidity_max,2)}
         print(json_message)
         message = ("{0:10}, {1:8}, {2}, {3:3.2f}, {4:3.2f}".format(datestamp, timestamp, CLIENT_ID, measured_temperature, measured_humidity))
         wifi_connection = connect_wifi()
         # mqtt_client = connect_mqtt()
         client = MQTTClient(CLIENT_ID, mqtt_server, mqtt_port, mqtt_user, mqtt_password)
         client.connect()
-        client.publish(mqtt_topic, message)
+        client.publish(mqtt_topic, json_message)
         client.disconnect()
         disconnect_wifi(wifi_connection)
         print(message)
