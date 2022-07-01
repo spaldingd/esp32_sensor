@@ -3,6 +3,7 @@
     Collects  DHT22 sensor reading and publishes to a MQTT topic.
 """
 
+import json
 import time
 import dht # type: ignore
 from env_vars import *
@@ -62,10 +63,19 @@ while True:
         timestamp = '{:02d}:{:02d}:{:02d}'.format(t[3], t[4], t[5])
         datestamp = '{:04d}-{:02d}-{:02d}'.format(t[0], t[1], t[2])
         sensor.measure()
-        temperature = sensor.temperature()
-        humidity = sensor.humidity()
-        json_message = {'date': datestamp, 'time':timestamp, 'client_id': CLIENT_ID, 'measured_temperature': temperature, 'measured_humidity': humidity}
-        message = ("{0:10}, {1:8}, {2}, {3:3.2f}, {4:3.2f}".format(datestamp, timestamp, CLIENT_ID, temperature, humidity))
+        measured_temperature = sensor.temperature()
+        measured_humidity = sensor.humidity()
+        json_message = {'date': datestamp, 
+                        'time': timestamp, 
+                        'client_id': CLIENT_ID, 
+                        'measured_temperature': measured_temperature, 
+                        'measured_humidity': measured_humidity, 
+                        'temperature_min': temperature_min, 
+                        'temperature_max': temperature_max,
+                        'humidity_min': humidity_min,
+                        'humidity_max': humidity_max}
+        print(json_message)
+        message = ("{0:10}, {1:8}, {2}, {3:3.2f}, {4:3.2f}".format(datestamp, timestamp, CLIENT_ID, measured_temperature, measured_humidity))
         wifi_connection = connect_wifi()
         # mqtt_client = connect_mqtt()
         client = MQTTClient(CLIENT_ID, mqtt_server, mqtt_port, mqtt_user, mqtt_password)
