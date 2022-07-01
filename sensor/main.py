@@ -70,12 +70,12 @@ while True:
                         'client_id': CLIENT_ID, 
                         'measured_temperature': round(measured_temperature,2), 
                         'measured_humidity': round(measured_humidity,2), 
-                        'temperature_min': round(temperature_min,2), 
-                        'temperature_max': round(temperature_max,2),
-                        'humidity_min': round(humidity_min,2),
-                        'humidity_max': round(humidity_max,2)}
+                        'temperature_limit_min': round(temperature_limit_min,2), 
+                        'temperature_limit_max': round(temperature_limit_max,2),
+                        'humidity_limit_min': round(humidity_limit_min,2),
+                        'humidity_limit_max': round(humidity_limit_max,2)}
         print(json_message)
-        message = ("{0:10}, {1:8}, {2}, {3:3.2f}, {4:3.2f}".format(datestamp, timestamp, CLIENT_ID, measured_temperature, measured_humidity))
+        # message = ("{0:10}, {1:8}, {2}, {3:3.2f}, {4:3.2f}".format(datestamp, timestamp, CLIENT_ID, measured_temperature, measured_humidity))
         wifi_connection = connect_wifi()
         # mqtt_client = connect_mqtt()
         client = MQTTClient(CLIENT_ID, mqtt_server, mqtt_port, mqtt_user, mqtt_password)
@@ -83,7 +83,7 @@ while True:
         client.publish(mqtt_topic, str(json_message))
         client.disconnect()
         disconnect_wifi(wifi_connection)
-        print(message)
+        # print(message)
     except OSError as ose:
         print("Failed to read sensor")
         print(ose)

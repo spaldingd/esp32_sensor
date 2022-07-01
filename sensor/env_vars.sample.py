@@ -15,7 +15,7 @@ sleep_time = 60
 CLIENT_ID = "bedroom_temp"
 
 # Sensor Limit Definitions:
-temperature_min = 4
-temperature_max = 30
-humidity_min = 30
-humidity_max = 90
+temperature_limit_min = 4
+temperature_limit_max = 30
+humidity_limit_min = 30
+humidity_limit_max = 90
