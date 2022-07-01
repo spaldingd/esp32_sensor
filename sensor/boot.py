@@ -34,7 +34,7 @@ print(station.ifconfig())
 # Update Time
 print("Setting time via NTP")
 ntptime.settime()
-# time.sleep(5)
+time.sleep(5)
 t = time.localtime()
 print("System time set to: ")
 print('{:04d}-{:02d}-{:02d} {:02d}:{:02d}:{:02d}'.format(t[0], t[1], t[2], t[3], t[4], t[5]))
