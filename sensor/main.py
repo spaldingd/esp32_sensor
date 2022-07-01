@@ -64,6 +64,7 @@ while True:
         sensor.measure()
         temperature = sensor.temperature()
         humidity = sensor.humidity()
+        json_message = {'date': datestamp, 'time':timestamp, 'client_id': CLIENT_ID, 'measured_temperature': temperature, 'measured_humidity': humidity}
         message = ("{0:10}, {1:8}, {2}, {3:3.2f}, {4:3.2f}".format(datestamp, timestamp, CLIENT_ID, temperature, humidity))
         wifi_connection = connect_wifi()
         # mqtt_client = connect_mqtt()

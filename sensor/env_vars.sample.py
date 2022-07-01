@@ -13,3 +13,9 @@ mqtt_topic = "temp_humid"
 sleep_time = 60
 
 CLIENT_ID = "bedroom_temp"
+
+# Sensor Limit Definitions:
+temperature_min = 4
+temperature_max = 30
+humidity_min = 30
+humidity_max = 90
