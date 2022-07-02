@@ -91,7 +91,8 @@ while True:
         print("Failed to read sensor")
         print(ose)
 
-    time.sleep(sleep_time-1)
+    # time.sleep(sleep_time-1)
+    machine.lightsleep(sleep_time * 1000)
 
 if __name__ == "__main__":
     wifi_connection = connect_wifi()
