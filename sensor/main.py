@@ -76,7 +76,7 @@ while True:
                         'humidity_limit_max': round(humidity_limit_max,2)}
         print(json_message)
         with open("data_log.txt",'a') as file:
-            file.writelines(str(json_message))
+            file.write(str(json_message) + "\n")
         
         # message = ("{0:10}, {1:8}, {2}, {3:3.2f}, {4:3.2f}".format(datestamp, timestamp, CLIENT_ID, measured_temperature, measured_humidity))
         wifi_connection = connect_wifi()
